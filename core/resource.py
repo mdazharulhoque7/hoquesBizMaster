@@ -101,7 +101,7 @@ class Resource(object):
             if namespace in data:
                 return data[namespace], namespace
 
-        raise KeyError, "Data dictionary doesn't contain any of %s" % ', '.join(bases)
+        raise KeyError("Data dictionary doesn't contain any of %s" % ', '.join(bases))
 
     def validate(self, data, validate_with=None, state=None, **kw):
         """Returns validated copy of `data`. `formencode.Invalid` exception raised
@@ -120,7 +120,7 @@ class Resource(object):
         except formencode.Invalid:
             exc_class, exc, tb = sys.exc_info()
             exc.error_dict = {namespace: exc.error_dict}
-            raise ResourceInsertException, (exc, self), tb
+            raise ResourceInsertException((exc, self), tb)
 
 
     def create_model(self, data, validate_with=None, **kw):
@@ -159,8 +159,8 @@ class Resource(object):
         for k, v in data.iteritems():
             try:
                 prop = mapper.get_property(k)
-            except Exception, e:
-                print e
+            except Exception as e:
+                print(e)
             if prop is None: continue
 
             if isinstance(prop, sqlalchemy.orm.RelationshipProperty):
@@ -295,7 +295,7 @@ class Resource(object):
         :return: Group object, containing list property for every grouped key and `all` objects
         """
         container = kwargs.get('container', dict)
-        groups = collections.namedtuple('Groups', 'all ' + ' '.join(args))((kwargs.get('query') or self.query()).all(), *[container() for _ in xrange(len(args))])
+        groups = collections.namedtuple('Groups', 'all ' + ' '.join(args))((kwargs.get('query') or self.query()).all(), *[container() for _ in range(len(args))])
 
         for key, uselist in [(key, key != self.primary_key) for key in args]:
             group = getattr(groups, key)
@@ -333,7 +333,7 @@ class Resource(object):
         :return: `Query` object
         """
         if len(args):
-            query = self.session.query(*[getattr(self.model, f) if isinstance(f, basestring) else f for f in args])
+            query = self.session.query(*[getattr(self.model, f) if isinstance(f, str) else f for f in args])
         else:
             query = self.session.query(self.model)
 
@@ -398,7 +398,7 @@ class Resource(object):
         key_property = keygetter(self.model)
 
         if value:
-            valuegetter = {'str': str, 'unicode': unicode}.get(value, operator.attrgetter(value))
+            valuegetter = {'str': str, 'unicode': str}.get(value, operator.attrgetter(value))
 
             try:
                 value_property = valuegetter(self.model)

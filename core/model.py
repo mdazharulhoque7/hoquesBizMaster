@@ -139,7 +139,7 @@ class ListProperty(QueryProperty):
         self.relation = instance
         self.related_class = instance.related_class
         if not hasattr(self.related_class, 'type'):
-            raise TypeError, "%s doesn't have 'type' property" % repr(self.related_class)
+            raise TypeError("%s doesn't have 'type' property" % repr(self.related_class))
 
         return self
 
@@ -153,7 +153,7 @@ class ListProperty(QueryProperty):
         """Default object among the collection
         """
         if not hasattr(self.related_class, 'default'):
-            raise TypeError, "%s doesn't have 'default' property" % repr(self.related_class)
+            raise TypeError("%s doesn't have 'default' property" % repr(self.related_class))
 
         return self.query().filter(self.related_class.default == True).first()
 

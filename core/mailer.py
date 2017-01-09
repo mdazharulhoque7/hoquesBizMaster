@@ -53,7 +53,7 @@ class Emailer(object):
             # email.from_email = host_user
             # file_name = str(email.file_path).split('\\')[-1:][0]
             message = self.create_smtp_message()
-            print "next execute......................"
+            print("next execute......................")
             mail_server = smtplib.SMTP(self.host, self.port)
             mail_server.ehlo()
             mail_server.starttls()
@@ -61,12 +61,11 @@ class Emailer(object):
             mail_server.login(self.host_user, self.host_password)
             mail_server.sendmail(self.host_user, self.to, message.as_string())
             mail_server.close()
-            print "^^^^^^^^^^^^^^^^^^^^^^^^^ MAIL SEND ^^^^^^^^^^^^^^^^^^"
+            print("^^^^^^^^^^^^^^^^^^^^^^^^^ MAIL SEND ^^^^^^^^^^^^^^^^^^")
             return (True, 'send mail')
-        except Exception, e:
-            print e
-            print traceback.format_exc()
-            import pdb;pdb.set_trace()
+        except Exception as e:
+            print(e)
+            print(traceback.format_exc())
             err_status=e
             return (False, err_status)
 
@@ -75,26 +74,26 @@ class Emailer(object):
 
         sent = True
         err_status=' '
-        print '.......................inside SEND MAIL SMTP method................................\n'
+        print('.......................inside SEND MAIL SMTP method................................\n')
         try:
-            print 'send_mail_smtp--- TRY block'
+            print('send_mail_smtp--- TRY block')
             connection = mail.get_connection()
-            print 'Got connection...\n'
+            print('Got connection...\n')
             with connection._lock:
                 connection.open()
                 try:
                     sent, err_status = self.smtp_send()
-                    print "Sent msg>>>>>>>>>>",sent
+                    print("Sent msg>>>>>>>>>>",sent)
 
-                except Exception, e:
+                except Exception as e:
                     err_status=e
                     sent = False
-                    print "error msg>>>>>>>>>>",e
-                    print sent
+                    print("error msg>>>>>>>>>>",e)
+                    print(sent)
                 connection.close()
-        except Exception, e:
-            print e
-            print traceback.format_exc()
+        except Exception as e:
+            print(e)
+            print(traceback.format_exc())
             err_status=e
             sent = False
         return sent

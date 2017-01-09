@@ -21,15 +21,15 @@ class ResourceInsertException(Exception):
         for k, v in dict.iteritems():
             try:
                 if isinstance(v, collections.Iterable):
-                    print v
+                    print(v)
                     self.prepare_json_error(v)
                 else:
                     if isinstance(v, Invalid):
                         dict[k] =  str(v)
 
-            except Exception, e:
-                print 'Error in --------Preparing Json ERROR'
-                print e
+            except Exception as e:
+                print('Error in --------Preparing Json ERROR')
+                print(e)
 
     def grid_error(self, property=None, model_name=None):
         """For a given `property`, generates error list suitable for marking error
