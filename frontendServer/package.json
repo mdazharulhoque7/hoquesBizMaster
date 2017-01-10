@@ -1,0 +1,22 @@
+{
+  "name": "hoquesbiz",
+  "version": "1.0.0",
+  "description": "Angular Front End for hoquesBiz Application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "(https://github.com/mdazharulhoque7/hoquesBizMaster)"
+  },
+  "author": "Md. Azharul Hoque (mdazharulhoque7@gmail.com)",
+  "license": "ISC",
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-inject": "^4.2.0",
+    "gulp-serve": "^1.4.0",
+    "run-sequence": "^1.2.2"
+  }
+}
